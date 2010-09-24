@@ -1,0 +1,17 @@
+Given a string reverser
+When I reverse the string:
+|inputString|
+|""|
+|A|
+|AB|
+|ABC|
+|ABA|
+Then the result should be <reversedString>
+|reversedString|
+|""|
+|A|
+|BA|
+|CBA|
+|ABA|
+When I do not provide a string
+Then the result should be empty

@@ -1,0 +1,12 @@
+Given a string reverser
+When I reverse a <inputString> string
+Then the result should be <reversedString>
+
+Examples:
+
+|inputString|reversedString|
+|""|""|
+|A|A|
+|AB|BA|
+|ABC|CBA|
+|ABA|ABA|
