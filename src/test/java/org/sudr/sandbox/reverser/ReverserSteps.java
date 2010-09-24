@@ -25,7 +25,11 @@ public class ReverserSteps {
 						"I reverse the $inputString string",
 						"I reverse the string $inputString"})
 	public void iReverseAInputString(@Named("inputString")String inputString) {
-		reversedString = stringReverser.reverse(inputString);
+		reversedString = setupReverser(inputString);
+	}
+
+	private String setupReverser(String inputString) {
+		return stringReverser.reverse(inputString);
 	}
 
 	@Then("the result should be <reversedString>")
