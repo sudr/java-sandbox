@@ -40,7 +40,7 @@ public class ReverserSteps {
 	
 	@When("I do not provide a string")
 	public void iDoNotProvideAString() {
-		reversedString = stringReverser.reverse(null);
+		reversedString = setupReverser(null);
 	}
 	
 	@Then("I should get back empty")
