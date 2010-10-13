@@ -10,6 +10,7 @@ import org.jbehave.core.annotations.When;
 public class TestFrameworkSteps {
 
 	private TestCase testCase;
+	private TestSuite testSuite;
 	private TestResult result;
 
 	@Given("a test case")
@@ -36,13 +37,31 @@ public class TestFrameworkSteps {
 		this.testCase = new PublicMethodTestCase(getClass().toString());
 	}
 	
+	@Given("a test suite with 2 tests")
+	public void aTestSuiteWithTests() {
+		this.result = new TestResult();
+		this.testSuite = new TestSuite();
+		testSuite.addTest(new PublicMethodTestCase("testMethod1"));
+		testSuite.addTest(new PublicMethodTestCase("testMethod2"));
+	}
+	
 	@When("I call execute")
 	public void iCallExecute() {
 		testCase.run(result);
 	}
+	
+	@When("I call execute on the test suite")
+	public void iCallExecuteOnTheTestSuite() {
+		testSuite.run(result);
+	}
 
 	@Then("the test count should be $testCount")
 	public void theTestCountShouldBe(int testCount) {
+		assertThat(result.countTests, equalTo(testCount));
+	}
+	
+	@Then("the test suite result count should be $testCount")
+	public void theTestSuiteResultCountShouldBe(int testCount) {
 		assertThat(result.countTests, equalTo(testCount));
 	}
 	
