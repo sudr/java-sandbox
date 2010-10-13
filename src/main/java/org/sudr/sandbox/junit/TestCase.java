@@ -18,6 +18,8 @@ public abstract class TestCase implements Test {
 			runTest();
 		} catch (AssertionFailedError e) {
 			result.addFailure(this, e);
+		} catch (Throwable t) {
+			result.addError(this, t);
 		} finally {
 			tearDown();
 		}

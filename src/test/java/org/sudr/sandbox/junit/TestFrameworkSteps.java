@@ -23,6 +23,12 @@ public class TestFrameworkSteps {
 		this.result = new TestResult();
 		this.testCase = new AssertionErrorTestCase(getClass().toString());
 	}
+	
+	@Given("a test case that throws an exception")
+	public void aTestCaseThatThrowsAnException() {
+		this.result = new TestResult();
+		this.testCase = new ExceptionTestCase(getClass().toString());
+	}
 
 	@When("I call execute")
 	public void iCallExecute() {
@@ -37,6 +43,11 @@ public class TestFrameworkSteps {
 	@Then("the failure count should be $failureCount")
 	public void theFailureCountShouldBe(int failureCount) {
 		assertThat(result.failureCount(), equalTo(failureCount));
+	}
+	
+	@Then("the error count should be $errorCount")
+	public void theErrorCountShouldBe(int errorCount) {
+		assertThat(result.errorCount(), equalTo(errorCount));
 	}
 	
 }

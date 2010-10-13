@@ -12,6 +12,7 @@ public class TestResult {
 
 	protected int countTests;
 	private List<TestFailure> failures = new ArrayList<TestFailure>();
+	private List<TestFailure> errors = new ArrayList<TestFailure>();
 	
 	public TestResult() {
 		countTests = 0;
@@ -27,6 +28,14 @@ public class TestResult {
 	
 	protected int failureCount() {
 		return failures.size();
+	}
+	
+	public void addError(Test test, Throwable t) {
+		errors.add(new TestFailure(test, t));
+	}
+
+	public int errorCount() {
+		return errors.size();
 	}
 
 }
