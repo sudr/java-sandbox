@@ -30,6 +30,12 @@ public class TestFrameworkSteps {
 		this.testCase = new ExceptionTestCase(getClass().toString());
 	}
 
+	@Given("a test case that declares a public method")
+	public void aTestCaseThatDeclaresPublicMethod() {
+		this.result = new TestResult();
+		this.testCase = new PublicMethodTestCase(getClass().toString());
+	}
+	
 	@When("I call execute")
 	public void iCallExecute() {
 		testCase.run(result);

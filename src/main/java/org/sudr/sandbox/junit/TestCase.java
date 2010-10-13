@@ -1,5 +1,8 @@
 package org.sudr.sandbox.junit;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public abstract class TestCase implements Test {
 
 	private final String name;
@@ -31,14 +34,27 @@ public abstract class TestCase implements Test {
 		return result;
 	}
 
+	protected void runTest() throws Throwable {
+		Method runMethod = null;
+		try {
+			runMethod = getClass().getMethod(name, new Class[0]);
+		} catch (NoSuchMethodException e) {
+			assertTrue("Method \"" + name + "\" not found", false);
+		}
+		try {
+			runMethod.invoke(this, new Class[0]);
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private TestResult createTestResult() {
 		return new TestResult();
 	}
 
 	protected void setUp() {
-	}
-
-	protected void runTest() {
 	}
 
 	protected void tearDown() {
@@ -49,4 +65,11 @@ public abstract class TestCase implements Test {
 			throw new AssertionFailedError();
 		}
 	}
+
+	private void assertTrue(String string, boolean condition) {
+		if (!condition) {
+			throw new AssertionFailedError(string);
+		}
+	}
+
 }
