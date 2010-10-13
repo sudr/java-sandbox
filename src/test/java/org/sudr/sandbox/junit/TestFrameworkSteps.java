@@ -9,7 +9,7 @@ import org.jbehave.core.annotations.When;
 
 public class TestFrameworkSteps {
 
-	private AbstractTestCase testCase;
+	private TestCase testCase;
 	private TestResult result;
 
 	@Given("a test case")
@@ -17,15 +17,26 @@ public class TestFrameworkSteps {
 		this.result = new TestResult();
 		this.testCase = new SampleTestCase(getClass().toString());
 	}
+	
+	@Given("a test case that throws assertion error")
+	public void aTestCaseThatThrowsAssertionError() {
+		this.result = new TestResult();
+		this.testCase = new AssertionErrorTestCase(getClass().toString());
+	}
 
 	@When("I call execute")
 	public void iCallExecute() {
 		testCase.run(result);
 	}
 
-	@Then("the test count should be $countTests")
-	public void theResultShouldBe(int countTests) {
-		assertThat(result.countTests, equalTo(countTests));
+	@Then("the test count should be $testCount")
+	public void theTestCountShouldBe(int testCount) {
+		assertThat(result.countTests, equalTo(testCount));
+	}
+	
+	@Then("the failure count should be $failureCount")
+	public void theFailureCountShouldBe(int failureCount) {
+		assertThat(result.failureCount(), equalTo(failureCount));
 	}
 	
 }
